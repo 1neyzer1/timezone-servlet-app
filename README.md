@@ -1,54 +1,54 @@
 # 🕒 Timezone Servlet Application
 
-A custom Java Servlet application built for Apache Tomcat to dynamic processing and rendering of the current time across multiple timezones. Featuring automatic routing, strict timezone validations, browser cookie persistence, and dynamically rendered UI via Thymeleaf.
+Спеціальний веб-застосунок на основі Java Servlet, розроблений для Apache Tomcat, який динамічно відображає поточний час у різних часових поясах. Проєкт включає автоматичну маршрутизацію, сувору валідацію часових поясів, збереження налаштувань у Cookies браузера та динамічний рендеринг інтерфейсу за допомогою Thymeleaf.
 
-## ✨ Features
+## ✨ Основний функціонал
 
-- **Timezone Querying**: Pass a `timezone` (e.g. `UTC+2`, `Europe/Kyiv`) as a URL parameter to recalculate real-time output.
-- **Server-side Templating**: Integration with `Thymeleaf` to handle sleek HTML templating gracefully. 
-- **Persisted User Settings**: Seamlessly saves your last valid timezone preferences explicitly into `Cookies`, enabling intelligent parameter fallback on subsequent visits.
-- **Strict Validations (`Filter`)**: Validates the timezone using `java.util.TimeZone`. Any incorrect request string immediately returns `HTTP 400 Invalid timezone` seamlessly bypassing the handler.
-- **Jakarta/Java EE Standardized**: Built utilizing typical `javax.servlet` mapping parameters, explicitly optimized for deployment on `Tomcat 9`.
+- **Запит часового поясу**: Передай `timezone` (наприклад, `UTC+2`, `Europe/Kyiv`) як параметр в URL, щоб динамічно отримати час для обраного поясу.
+- **Шаблонізація на боці сервера**: Інтеграція з `Thymeleaf` для зручної та елегантної генерації HTML.
+- **Збереження налаштувань користувача**: Застосунок автоматично зберігає останній валідний часовий пояс у `Cookies`, що дозволяє використовувати його наступного разу, якщо параметр не передано.
+- **Сувора валідація параметрів (`Filter`)**: Здійснює перевірку часових поясів через `java.util.TimeZone`. Будь-який некоректний запит миттєво відхиляється фільтром із поверненням статусу `HTTP 400 Invalid timezone`, навіть не доходячи до сервлета.
+- **Стандарти Jakarta/Java EE**: Побудовано за допомогою класичних маппінгів `javax.servlet` — ідеально оптимізовано для розгортання на `Tomcat 9`.
 
-## 🛠 Prerequisites
+## 🛠 Вимоги до середовища
 
-Ensure your environment includes the following essential prerequisites installed:
+Переконайся, що у тебе встановлено та налаштовано:
 - [Java Development Kit (JDK 11+)](https://adoptium.net/)
-- [Apache Maven](https://maven.apache.org/) - For dependency aggregation and build flow setup.
+- [Apache Maven](https://maven.apache.org/) - для завантаження залежностей та збирання проєкту.
 - [Apache Tomcat 9](https://tomcat.apache.org/download-90.cgi)
 
-## 🚀 Installation & Running
+## 🚀 Встановлення та Запуск
 
-1. **Clone the repository:**
+1. **Склонуй репозиторій:**
    ```bash
    git clone https://github.com/1neyzer1/timezone-servlet-app.git
    cd timezone-servlet-app
    ```
 
-2. **Build the WAR package via Maven:**
+2. **Збери проєкт у форматі WAR за допомогою Maven:**
    ```bash
    mvn clean package
    ```
-   *This command aggregates all class configurations globally and builds the `.war` deployment bundle into the `/target` directory.*
+   *Ця команда підтягне всі залежності і згенерує файл `.war` для деплою в директорії `/target`.*
 
-3. **Deploy it on Tomcat Application Server:**
-   - Copy the successfully generated `.war` file (e.g., `timezone-servlet-app-1.0-SNAPSHOT.war`) from the `target/` directory over to `/webapps` located inside your native Tomcat server's distribution architecture.
-   - Run Tomcat server.
+3. **Розгорни додаток на сервері Tomcat:**
+   - Скопіюй згенерований `.war` файл (наприклад, `timezone-servlet-app-1.0-SNAPSHOT.war`) з папки `target/` до папки `/webapps`, яка знаходиться в кореневій директорії твого Tomcat.
+   - Запусти сервер Tomcat.
    
-   *(Alternatively, run the configuration inherently through IntelliJ IDEA via your native Maven/Tomcat configuration integrations).*
+   *(Альтернативно, ти можеш запустити конфігурацію напряму через твоє IDE (наприклад, IntelliJ IDEA) за допомогою інтегрованих плагінів Tomcat).*
 
-## 📖 Usage Examples
+## 📖 Приклади використання
 
-Once properly deployed, visit your standard Localhost bindings (e.g. `http://localhost:8080/time`)!
+Після успішного розгортання перейди за локальною адресою (наприклад, `http://localhost:8080/timezone-servlet-app-1.0-SNAPSHOT/time`, або `http://localhost:8080/time`, якщо задеплоїв у корінь).
 
-- **Base Parameter:** 
-  `http://localhost:8080/time` returns basic current UTC time (if no cookie is active).
+- **Базовий параметр:** 
+  Перехід за посиланням `http://localhost:8080/time` поверне поточний час за UTC (якщо куки ще не збережено).
   
-- **Custom Timezone Passing:** 
-  Visit `http://localhost:8080/time?timezone=UTC+2` yielding `2022-01-05 12:05:01 UTC+2` globally on the screen.
+- **Передача кастомного часового поясу:** 
+  Перехід за `http://localhost:8080/time?timezone=UTC+2` виведе щось на кшталт `2022-01-05 12:05:01 UTC+2`.
 
-- **Check Incorrect Behaviors:** 
-  Visit `http://localhost:8080/time?timezone=Invalid_Zone` which reliably restricts processing via `TimezoneValidateFilter`.
+- **Поведінка при помилковому записі:** 
+  Перехід за `http://localhost:8080/time?timezone=Invalid_Zone` відхилить запит та виведе помилку через `TimezoneValidateFilter`.
 
 ---
-*Created as part of Java coursework assignments.*
+*Створено в рамках виконання практичного завдання курсу з Java.*
